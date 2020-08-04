@@ -1,0 +1,74 @@
+//on mouseover, display riddle answer
+ $trigger.mouseover(function() {
+      
+	  var ttLeft,
+	      ttTop,
+		  $this = $(this),
+		  $riddleData = $($this.attr('data-riddle')),
+		  triggerPos = $this.offset(),
+		  triggerH = $this.outerHeight(),
+		  triggerW = $this.outerWidth(),
+		  riddleW = $riddleData.outerWidth(),
+		  riddleH = $riddleData.outerHeight(),
+		  screenW = $(window).width(),
+		  scrollTop = $(document).scrollTop();
+		  
+	  if(triggerPos.top - riddleH - scrollTop > 0) {
+	      ttTop = triggerPos.top - riddleH - 10;
+	  } else {
+		  ttTop = triggerPos.top + triggerH + 10;
+	  }
+	  
+	  var overFlowRight = (triggerPos.left + riddleW) - screenW;
+	  
+	  if(overFlowRight > 0) {
+	      ttLeft = triggerPos.left - overFlowRight - 10;
+	  } else {
+	      ttLeft = triggerPos.left;
+	  }
+	  
+	  $riddle.css({
+	     left : ttLeft,
+		 top : ttTop,
+		 position : 'absolute'
+		 }).fadeIn(200);
+	  
+ })
+ 
+ //on mouseout, hide riddle answer
+ $trigger.mouseout(function() {
+ 
+      $riddle.fadeOut(200);
+ 
+ })
+ 
+ CSS
+ 
+ .riddle {
+    width:175px;
+    padding:5px;
+    box-shadow:5px 5px 10px rgb(77,70,133);
+    background:rgb(255,255,255);
+    border-radius:5px;
+    text-align:center;
+    z-index:6;
+ }
+ 
+.trigger {
+    border-bottom:1px dashed white;
+    color:rgb(153,62,141);
+    cursor:help; 
+ }
+ 
+.trigger:hover {
+    color:#400080;
+ }
+ 
+ HTML
+ 
+ <h3>A Passover Riddle by Edgar O&rsquo;Connell:</h3>
+<h4 class="trigger" data-riddle="#passover">What type of cheese might be served at the Seder?</h4>
+
+<div class="riddle" id="passover">
+     <p>Mozzarella!<br><br>(Matzah-rella, get it?)</p>
+   </div>
